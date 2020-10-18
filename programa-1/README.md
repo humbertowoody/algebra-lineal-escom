@@ -96,4 +96,4 @@ Semestre: Septiembre 2020 - Febrero 2021.
 
 19 de Octubre de 2020.
 
-[grafica-1]: /assets/graph-1.png
+[grafica-1]: assets/graph-1.png
