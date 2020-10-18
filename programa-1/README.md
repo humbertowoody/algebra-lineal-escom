@@ -20,11 +20,57 @@ Con lo cual se activará nuestro entorno de desarrollo con las librerías y depe
 Una ejecución promedio del programa presenta la siguiente salida en la terminal:
 
 ```txt
+Sistemas de Ecuaciones Lineales de 2x2 por Gauss-Jordan
+Escuela Superior de Cómputo - Instituto Politécnico Nacional
+Dr. Dárwin Gutiérrez Mejía - Álgebra Lineal
+
+Alumno: Humberto Alejandro Ortega Alcocer
+Programa: 1
+
+Este programa no puede leer fracciones, si desea introducir números racionales, porfavor introdúzcalos usando representación decimal, gracias.
+
+Leyendo datos para la primer ecuación.
+Ingresa el valor para x1: 1
+Ingresa el valor para y1: 1
+Ingresa el valor para el término independiente 1: 10
+
+Leyendo datos para la segunda ecuación.
+Ingresa el valor para x2: -1
+Ingresa el valor para y2: -1
+Ingresa el valor para el término independiente 2: 20
+
+Sistema de ecuaciones leído:
+Ecuación 1: (1.0)x + (1.0)y = 10.0
+Ecuación 2: (-1.0)x + (-1.0)y = 20.0
+
+Matriz de Coeficientes Original (A):
+(1.0,1.0)
+(-1.0,-1.0)
+
+Matriz Extendida Original (A*):
+(1.0,1.0,10.0)
+(-1.0,-1.0,20.0)
+
+Matriz Diagonalizada:
+(1.0,1.0,10.0)
+(0.0,0.0,30.0)
+
+Datos relevantes:
+  ~ Rango matriz coeficientes R(A): 1
+  ~ Rango matriz extendida R(A*): 2
+  ~ Número de incógnitas: 2
+
+Conclusión final:
+  ~ El sistema no tiene solución (A_{22}=0.0; b_{2}=30.0; A_{22} es cero y b2 es distinto a 0).
+
+Presione ENTER para mostrar las gráficas de las ecuaciones...
+¡Mostrando gráficas de las ecuaciones en la ventana emergente!
+¡Fin de ejecución!
 ```
 
 Imágen muestra de la graficación para la salida anterior:
 
-TODO: imágen
+![Gráfica 1][grafica-1]
 
 ## Conclusión
 
@@ -49,3 +95,5 @@ Correo: [hortegaa1500@alumno.ipn.mx](mailto:hortegaa1500@alumno.ipn.mx)
 Semestre: Septiembre 2020 - Febrero 2021.
 
 19 de Octubre de 2020.
+
+[grafica-1]: /assets/graph-1.png
