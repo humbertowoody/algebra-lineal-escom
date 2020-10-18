@@ -1,7 +1,8 @@
 # Álgebra Lineal
 
 **Escuela Superior de Cómputo - Instituto Politécnico Nacional**
-Dr. Dárwin Gutiérrez Mejía
+
+Profesor: Dr. Dárwin Gutiérrez Mejía
 
 ## Evidencias del semestre.
 
