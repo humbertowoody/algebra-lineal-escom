@@ -15,40 +15,40 @@ import numpy as np
 # ---- Funciones del programa ----
 
 def imprimir_matriz(matriz, max_filas, max_columnas):
-	"""
-	Función que imprime una matriz.
-	"""
-	for fila in range(0,max_filas):
-		print("(", end='')
-		for columna in range(0,max_columnas):
-			print(matriz[fila][columna], end='')
-			if (columna < (max_columnas-1)):
-				print(',',end='')
-			pass
-		print(")")
-		pass
-	print("")
-	pass
+  """
+  Función que imprime una matriz.
+  """
+  for fila in range(0,max_filas):
+    print("(", end='')
+    for columna in range(0,max_columnas):
+      print(matriz[fila][columna], end='')
+      if (columna < (max_columnas-1)):
+        print(',',end='')
+      pass
+    print(")")
+    pass
+  print("")
+  pass
 
 
 def rango_matriz(matriz, filas, columnas):
-	"""
-	Función que calcula el rango de una matriz.
-	"""
-	rango = 0 # Asumimos que el rango es 0.
-	for fila_actual in range(filas):
-		fila_con_valor_diferente_a_cero = False
-		for columna_actual in range(columnas):
-			# Revisamos si el valor es distinto a 0.
-			if matriz[fila_actual][columna_actual] != 0:
-				fila_con_valor_diferente_a_cero = True
-				break
+  """
+  Función que calcula el rango de una matriz.
+  """
+  rango = 0 # Asumimos que el rango es 0.
+  for fila_actual in range(filas):
+    fila_con_valor_diferente_a_cero = False
+    for columna_actual in range(columnas):
+      # Revisamos si el valor es distinto a 0.
+      if matriz[fila_actual][columna_actual] != 0:
+        fila_con_valor_diferente_a_cero = True
+        break
 
-		# Si la fila tiene al menos un valor diferente a cero, contabilizamos.
-		if fila_con_valor_diferente_a_cero:
-			rango = rango + 1
-	# Regresamos la contabilización de filas con valores distintos a cero.
-	return rango
+    # Si la fila tiene al menos un valor diferente a cero, contabilizamos.
+    if fila_con_valor_diferente_a_cero:
+      rango = rango + 1
+  # Regresamos la contabilización de filas con valores distintos a cero.
+  return rango
 
 # ---- Ejecución Principal ----
 
@@ -93,8 +93,8 @@ print()
 
 # Formamos la matriz extendida.
 matriz_extendida = [
-	[x1, y1, b1],
-	[x2, y2, b2]
+  [x1, y1, b1],
+  [x2, y2, b2]
 ]
 
 # La matriz de coeficientes es la matriz extendida sin la última columna.
@@ -111,11 +111,11 @@ matriz_diagonalizada = matriz_extendida
 
 # Primero hacemos 1 el valor en A*_{11}
 if matriz_extendida[0][0] != -1 and matriz_extendida[0][0] != 1:
-	constante = 1 / matriz_extendida[0][0]
+  constante = 1 / matriz_extendida[0][0]
 
-	matriz_diagonalizada[0][0] = constante * matriz_extendida[0][0]
-	matriz_diagonalizada[0][1] = constante * matriz_extendida[0][1]
-	matriz_diagonalizada[0][2] = constante * matriz_extendida[0][2]
+  matriz_diagonalizada[0][0] = constante * matriz_extendida[0][0]
+  matriz_diagonalizada[0][1] = constante * matriz_extendida[0][1]
+  matriz_diagonalizada[0][2] = constante * matriz_extendida[0][2]
 
 
 # Ahora hacemos 0 el valor en A*_{21}
@@ -123,7 +123,7 @@ temporal = matriz_extendida[1][0] * -1
 
 # En caso de que la primer suma no resulte en cero, es porque el valor temporal debe ser cambiado de signo.
 if ((matriz_diagonalizada[0][0] * temporal) + matriz_extendida[1][0]) != 0:
-	temporal = temporal * -1
+  temporal = temporal * -1
 
 # Operación en toda la fila.
 matriz_diagonalizada[1][0] = (matriz_diagonalizada[0][0] * temporal) + matriz_extendida[1][0]
@@ -139,7 +139,7 @@ rango_matriz_extendida  = rango_matriz(matriz_diagonalizada, 2, 3)
 rango_matriz_coeficientes = rango_matriz(matriz_diagonalizada, 2, 2)
 
 # Fijo.
-numero_incognitas = 2; # :O 
+numero_incognitas = 2; # :O
 
 # Imprimimos datos.
 print("Datos relevantes:")
@@ -164,25 +164,25 @@ b2_diagonal = matriz_diagonalizada[1][2]
 
 # Caso dónde no existe solución.
 if ultimo_valor_diagonal == 0 and b2_diagonal != 0:
-	print("  ~ El sistema no tiene solución (A_{22}=" + str(ultimo_valor_diagonal) + "; b_{2}=" + str(b2_diagonal) + "; A_{22} es cero y b2 es distinto a 0).")
-	pass
+  print("  ~ El sistema no tiene solución (A_{22}=" + str(ultimo_valor_diagonal) + "; b_{2}=" + str(b2_diagonal) + "; A_{22} es cero y b2 es distinto a 0).")
+  pass
 # Caso dónde el sistema tiene una solución puntual.
 elif ultimo_valor_diagonal != 0:
-	print("  ~ El sistema tiene solución única (A_{22}=" + str(ultimo_valor_diagonal) + " no es igual a cero).")
+  print("  ~ El sistema tiene solución única (A_{22}=" + str(ultimo_valor_diagonal) + " no es igual a cero).")
 
-	# Usamos coeficientes de matriz diagonalizada.
-	solucion_y = b2_diagonal / ultimo_valor_diagonal
+  # Usamos coeficientes de matriz diagonalizada.
+  solucion_y = b2_diagonal / ultimo_valor_diagonal
 
-	# Sustituímos en la primer ecuación.
-	solucion_x = ((solucion_y * y1) * -1) + b1
-	
-	# Mostrar solución.
-	print("  ~ Solución para x: " + str(solucion_x))
-	print("  ~ Solución para y: " + str(solucion_y))
-	pass
+  # Sustituímos en la primer ecuación.
+  solucion_x = ((solucion_y * y1) * -1) + b1
+
+  # Mostrar solución.
+  print("  ~ Solución para x: " + str(solucion_x))
+  print("  ~ Solución para y: " + str(solucion_y))
+  pass
 # Caso dónde se tiene una infinidad de soluciones.
 else:
-	print("  ~ El sistema tiene infinidad de soluciones.")
+  print("  ~ El sistema tiene infinidad de soluciones.")
 
 # Concluyendo usando el teorema de Rouché-Fröbenius.
 # if (rango_matriz_extendida != rango_matriz_coeficientes):
@@ -210,7 +210,7 @@ x = np.linspace(-5,5,100)
 
 # Si tuvimos solución puntual, calculamos el rango a x - 5 y x + 5.
 if(not(solucion_x is None) and not(solucion_y is None)):
-	x = np.linspace(solucion_x - 5, solucion_x + 5, 100)
+  x = np.linspace(solucion_x - 5, solucion_x + 5, 100)
 
 # Añadimos las ecuaciones a nuestro "plot".
 plt.plot(x, (b1 - (x1 * x)) / y1, '-r', label=label_ecuacion_1_para_y)
