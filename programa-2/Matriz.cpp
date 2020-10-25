@@ -84,6 +84,29 @@ Matriz<P>::Matriz(std::vector<std::vector<P>> nueva_matriz_vectores)
  */
 
 /**
+ * Obtener Elemento
+ * Regresa el elemento en la posición {i,j} para la matriz actual.
+ */
+template <class P>
+P Matriz<P>::obtenerElemento(int indiceFila, int indiceColumna)
+{
+  // Validar el índice de la fila.
+  if (!this->indiceFilaValido(indiceFila))
+  {
+    throw ExcepcionMatriz(ERROR_MATRIZ_INDICE_FILA_INVALIDO);
+  }
+
+  // Validar el índice de la columna.
+  if (!this->indiceColumnaValido(indiceColumna))
+  {
+    throw ExcepcionMatriz(ERROR_MATRIZ_INDICE_COLUMNA_INVALIDO);
+  }
+
+  // Regresar el elemento.
+  return this->matriz_vector[indiceFila][indiceColumna];
+}
+
+/**
  * Obtener Numero de Filas
  * Esta función devuelve un entero con el número de filas disponibles en
  * la matriz actual.
@@ -165,7 +188,7 @@ int Matriz<P>::obtenerRango()
  * excepción.
  */
 template <class P>
-void Matriz<P>::insertarFila(std::vector<P> nueva_fila)
+Matriz<P> Matriz<P>::insertarFila(std::vector<P> nueva_fila)
 {
   // Validar la fila.
   if (!this->filaConsistente(nueva_fila))
@@ -173,8 +196,14 @@ void Matriz<P>::insertarFila(std::vector<P> nueva_fila)
     throw ExcepcionMatriz(ERROR_MATRIZ_FILA_INCONSISTENTE);
   }
 
-  // Insertamos la fila.
-  this->matriz_vector.push_back(nueva_fila);
+  // Copiamos nuestra matriz actual.
+  std::vector<std::vector<P>> nueva_matriz = this->matriz_vector;
+
+  // Insertamos la fila en la nueva matriz.
+  nueva_matriz.push_back(nueva_fila);
+
+  // Regresamos la nueva matriz con la fila.
+  return Matriz<P>(nueva_matriz);
 }
 
 /**
@@ -235,12 +264,11 @@ Matriz<P> Matriz<P>::intercambiarFilas(int fila_a, int fila_b)
 }
 
 /**
- * Diagonalizar
- * Realiza el proceso de diagonalización de la matriz actual y retorna una
- * matriz nueva.
+ * Diagonalización Inferior
+ * Realiza la diagonalización inferior de la matriz.
  */
 template <class P>
-Matriz<P> Matriz<P>::diagonalizar()
+Matriz<P> Matriz<P>::diagonalizacionInferior()
 {
   // Creamos el vector de vectores con los resultados.
   std::vector<std::vector<P>> matriz_diagonalizada = this->matriz_vector;

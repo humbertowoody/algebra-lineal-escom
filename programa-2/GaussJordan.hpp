@@ -43,10 +43,11 @@ public:
   ~GaussJordan(); // Destructor.
 
   // Funciones públicas.
-  void leerDatos();             // Lee los datos de entrada.
-  void diagonalizar();          // Diagonaliza la matriz extendida.
-  void verificarTipoSolucion(); // Verifica e imprime qué tipo de solución tiene la matriz.
-  void imprimirSolucion();      // Imprime la solución final.
+  void leerDatos();               // Lee los datos de entrada.
+  void diagonalizacionInferior(); // Realiza la diagonalizacion inferior de la matriz.
+  void verificarTipoSolucion();   // Verifica e imprime qué tipo de solución tiene la matriz.
+  // void diagonalizacionSuperior(); // Realiza la diagonalizacion superior de la matriz.
+  // void imprimirSolucion();      // Imprime la solución final.
 
 private:
   Matriz<P> *matriz_extendida, // La matriz extendida.

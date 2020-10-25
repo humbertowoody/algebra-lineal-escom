@@ -19,12 +19,12 @@ else
 # Esta sección realiza la compilación y ejecuta el programa con las entradas en los archivos *.txt
 g++ *.cpp -o Programa2.out -std=c++17 && echo "¡Compilado Exitosamente! Ejecutando binario con archivos de entrada *txt...";
 fechaHoy=$(date +"%d_%m_%Y-%H:%M") # La fecha del día de hoy + la hora.
-for i in *.txt
+for i in ./entradas/*.txt
 do
   # Primero añadimos división.
-  echo "-------------------$i-------------------" >> "resultados-ejecucion-${fechaHoy}.out";
+  echo "-------------------$i-------------------" >> "./ejecuciones/resultados-ejecucion-${fechaHoy}.txt";
   # Ejecutamos el programa en el archivo actual
-  ./Programa2.out < "$i" >> "resultados-ejecucion-${fechaHoy}.out";
+  ./Programa2.out < "$i" >> "./ejecuciones/resultados-ejecucion-${fechaHoy}.txt";
 done
 fi
 

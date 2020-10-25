@@ -113,13 +113,37 @@ void GaussJordan<P>::leerDatos()
     try
     {
       // Insertamos la fila en la matriz.
-      this->matriz_extendida->insertarFila(fila_temp);
+      this->matriz_extendida = new Matriz<P>(this->matriz_extendida->insertarFila(fila_temp));
     }
     catch (ExcepcionMatriz &e)
     {
       // La operación arrojó alguna excepción, la delegamos al iniciador de la llamada.
       throw e;
     }
+  }
+
+  // Mostramos el sistema de ecuaciones.
+  std::cout << "El sistema de ecuaciones ingresado es:" << std::endl;
+
+  // Iteramos en los elementos de la matriz extendida.
+  for (int fila = 0; fila < this->numero_ecuaciones; fila++)
+  {
+    for (int columna = 0; columna <= this->numero_variables; columna++)
+    {
+      // Revisamos el tipo de variable.
+      if (columna < this->numero_variables)
+      {
+        // Es alguna x_{columna}
+        std::cout << (this->matriz_extendida->obtenerElemento(fila, columna) < 0 ? " " : " +") << this->matriz_extendida->obtenerElemento(fila, columna) << "x_{" << columna + 1 << "}";
+      }
+      else
+      {
+        // Es el término independiente b_{fila}
+        std::cout << " = " << this->matriz_extendida->obtenerElemento(fila, columna) << "b_{" << fila + 1 << "}";
+      }
+    }
+    // Salto de línea.
+    std::cout << std::endl;
   }
 
   // Mostramos la matriz leída.
@@ -130,16 +154,16 @@ void GaussJordan<P>::leerDatos()
 }
 
 /**
- * Diagonalizar
- * Realiza el proceso de diagonalización de la matriz extendida.
+ * Diagonalizacion Inferior
+ * Realiza el proceso de diagonalización inferior de la matriz extendida.
  */
 template <class P>
-void GaussJordan<P>::diagonalizar()
+void GaussJordan<P>::diagonalizacionInferior()
 {
   try
   {
     // Realizamos la diagonalización.
-    this->matriz_diagonalizada = new Matriz<P>(this->matriz_extendida->diagonalizar());
+    this->matriz_diagonalizada = new Matriz<P>(this->matriz_extendida->diagonalizacionInferior());
 
     // Mostramos el resultado.
     std::cout << "La matriz extendida diagonalizada es: " << std::endl;
@@ -217,30 +241,60 @@ void GaussJordan<P>::verificarTipoSolucion()
 }
 
 /**
+ * Diagonalización Superior
+ * Realiza la operación de diagonalizacion superior de la matriz extendida previamente diagonalizada
+ * inferiormente con el fin de tener la matriz solución disponible para la solucion.
+ */
+// template <class P>
+// void GaussJordan<P>::diagonalizacionSuperior()
+// {
+//   // Revisamos que exista previamente la matriz diagonalizada y que exista la bandera
+//   // para solución única.
+//   if (this->matriz_diagonalizada != NULL && this->bandera_solucion == SOLUCION_UNICA)
+//   {
+//     try
+//     {
+//       // Si esta operación se repite no afecta a la matriz.
+//       this->matriz_diagonalizada = new Matriz<P>(this->matriz_diagonalizada->diagonalizacionSuperior());
+
+//       // TODO: A partir de la matriz diagonalizada superiormente, calcular los resultados.
+//     }
+//     catch(const ExcepcionMatriz& e)
+//     {
+//       std::cerr << "Ocurrió un error realizando la diagonalización superior de la matriz:" << std::endl
+//                 << e.id() << " - " << e.mensaje() << std::endl;
+//     }
+//   }
+// }
+
+/**
  * Imprimir solucion
  * Realiza el cálculo de la solución final en función de la matriz diagonalizada.
  */
-template <class P>
-void GaussJordan<P>::imprimirSolucion()
-{
-  // Depende la bandera lo que realizamos.
-  switch (this->bandera_solucion)
-  {
-  case SOLUCION_NO_CALCULADA:
-    std::cout << "No se ha realizado la verificación de la solución." << std::endl;
-    break;
-  case SOLUCION_UNICA:
-    std::cout << "El sistema tiene solución única, en la próxima versión se calculan los resultados." << std::endl;
-    // TODO: Pues, mostrar las soluciones, primero Dios.
-    break;
-  case INFINIDAD_SOLUCIONES:
-    std::cout << "El sistema tiene una infinidad de soluciones." << std::endl;
-    break;
-  default:
-    std::cout << "La bandera de solución no tiene un valor reconocible." << std::endl;
-    break;
-  }
-}
+// template <class P>
+// void GaussJordan<P>::imprimirSolucion()
+// {
+//   // Depende la bandera lo que realizamos.
+//   switch (this->bandera_solucion)
+//   {
+//   case SOLUCION_NO_CALCULADA:
+//     std::cout << "No se ha realizado la verificación de la solución." << std::endl;
+//     break;
+//   case SOLUCION_UNICA:
+//     std::cout << "El sistema tiene solución única, en la próxima versión se calculan los resultados." << std::endl;
+//     // TODO: Pues, mostrar las soluciones, primero Dios.
+//     break;
+//   case INFINIDAD_SOLUCIONES:
+//     std::cout << "El sistema tiene una infinidad de soluciones." << std::endl;
+//     break;
+//   case SIN_SOLUCION:
+//     std::cout << "El sistema no tiene solución." << std::endl;
+//     break;
+//   default:
+//     std::cout << "La bandera de solución no tiene un valor reconocible." << std::endl;
+//     break;
+//   }
+// }
 
 // Especificamos los tipos de datos válidos.
 template class GaussJordan<int>;   // Enteros.

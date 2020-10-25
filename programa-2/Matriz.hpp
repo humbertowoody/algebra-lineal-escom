@@ -28,8 +28,8 @@
 #endif
 
 // El número de caracteres reservados para imprimir la matriz.
-#ifndef CARACTERES_RESERVADOS_MATRIZ   // -82.73  Número contemplado estándar.
-#define CARACTERES_RESERVADOS_MATRIZ 6 // 123456  Conteo de caracteres = 6.
+#ifndef CARACTERES_RESERVADOS_MATRIZ    // -80.227323  Número contemplado estándar con 6 dígitos de precisión.
+#define CARACTERES_RESERVADOS_MATRIZ 10 // 12345678910  Conteo de caracteres = 10.
 #endif
 
 // Librerías necesarias.
@@ -54,14 +54,14 @@ public:
   // Funciones públicas.
 
   // Getters.
-  // P obtenerElemento(int, int); // Obtiene el valor en una posición de la matriz.
+  P obtenerElemento(int, int); // Obtiene el valor en una posición de la matriz.
   int obtenerNumeroColumnas(); // Obtiene el número de columnas actual en la matriz.
   int obtenerNumeroFilas();    // Obtiene el número de filas presentes en la matriz.
   int obtenerRango();          // Obtener el rango de la matriz.
 
   // Setters.
   // Matriz asignarElemento(int, int, P); // Asigna un valor a una posición en la matriz existente.
-  void insertarFila(std::vector<P>); // Inserta una nueva fila en la Matriz.
+  Matriz insertarFila(std::vector<P>); // Inserta una nueva fila en la Matriz.
   // Matriz eliminarFila(int);            // Elimina una fila dentro de la matriz.
   // void insertarColumna(std::vector<P>); // Inserta una nueva columna la Matriz.
   Matriz eliminarColumna(int); // Elimina una columna de la matriz.
@@ -72,7 +72,8 @@ public:
   // Matriz multiplicarFilaPorEscalar(int, P); // Multiplica una fila por un escalar.
 
   // Operaciones con Matrices.
-  Matriz diagonalizar(); // Diagonaliza una Matriz.
+  Matriz diagonalizacionInferior(); // Realiza la diagonalización de la parte inferior de la matriz.
+  // Matriz diagonalizacionSuperior(); // Realiza la diagonalización de la parte superior de la matriz.
 
   // Operaciones de entrada y salida.
   void imprimir(); // Imprime la matriz.

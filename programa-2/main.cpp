@@ -42,17 +42,21 @@ int main()
     solucionadorGaussJordan->leerDatos();
     std::cout << std::endl;
 
-    std::cout << "Paso 2: Diagonalizar la matriz extendida." << std::endl;
-    solucionadorGaussJordan->diagonalizar();
+    std::cout << "Paso 2: Diagonalizar la parte inferior de la matriz extendida." << std::endl;
+    solucionadorGaussJordan->diagonalizacionInferior();
     std::cout << std::endl;
 
     std::cout << "Paso 3: Verificar el tipo de solución." << std::endl;
     solucionadorGaussJordan->verificarTipoSolucion();
     std::cout << std::endl;
 
-    std::cout << "Paso 4: Mostrar la solución (si existe)." << std::endl;
-    solucionadorGaussJordan->imprimirSolucion(); // Falta completar implementación :(
-    std::cout << std::endl;
+    // std::cout << "Paso 4: Si hay solución única, realizar la diagonalización superior de la matriz extendida." << std::endl;
+    // solucionadorGaussJordan->diagonalizacionSuperior();
+    // std::cout << std::endl;
+
+    // std::cout << "Paso 5: Mostrar la solución (si existe)." << std::endl;
+    // solucionadorGaussJordan->imprimirSolucion(); // Falta completar implementación :(
+    // std::cout << std::endl;
   }
   catch (ExcepcionMatriz &e) // Por ahora sólamente implementé excepciones para la clase Matriz, pero la idea es que sean del solucionador GaussJordan.
   {
