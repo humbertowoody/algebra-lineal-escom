@@ -87,8 +87,7 @@ public:
   bool esIgual(Matriz);              // Verifica si dos matrices son iguales.
 
   // Operaciones de entrada y salida.
-  void imprimir();              // Imprime la matriz.
-  int maximoNumeroCaracteres(); // Calcula el máximo número de caracteres empleado por un elemento de la matriz.
+  void imprimir(); // Imprime la matriz.
 
 private:
   // Funciones privadas.
@@ -97,6 +96,7 @@ private:
   void imprimirEnRango(int, int);          // Imprime la matriz en un rango determinado.
   bool filaConsistente(std::vector<P>);    // Verifica si una fila es consistente con la matriz actual.
   bool columnaConsistente(std::vector<P>); // Verifica si una columna es consistente con la matriz actual.
+  int maximoNumeroCaracteres();            // Calcula el máximo número de caracteres empleado por un elemento de la matriz.
 
   // Variables privadas.
   std::vector<std::vector<P>> matriz_vector; // La matriz dinámica.
