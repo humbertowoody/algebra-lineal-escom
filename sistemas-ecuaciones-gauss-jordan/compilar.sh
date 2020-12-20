@@ -1,0 +1,1 @@
+g++ main.cpp ../Librerias/*.cpp --std=c++17 -o SistemasDeEcuacionesGaussJordan.out && echo "¡Compilado exitosamente como: SistemasDeEcuacionesGaussJordan.out!"
