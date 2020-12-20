@@ -47,6 +47,7 @@ public:
   std::vector<P> obtenerSolucionesUnicas();             // Regresa un vector con las soluciones correspondientes a las variables.
   void mostrarInfinidadDeSoluciones();                  // Muestra las ecuaciones que representan las soluciones válidas dada una infinidad de soluciones.
   void mostrarConclusion();                             // Muestra en la terminal la conclusión del procedimiento Gauss-Jordan.
+  int obtenerNumeroParametrosLibresInfinidadDeSoluciones();
 
 private:
   // Funciones privadas.

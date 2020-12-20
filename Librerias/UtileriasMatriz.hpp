@@ -5,6 +5,9 @@
  */
 #include <iostream>
 #include <iomanip>
+#include <sstream>
+#include <iterator>
+
 #include "./Matriz.hpp"
 #include "./GaussJordan.hpp"
 
@@ -12,6 +15,7 @@
  * Leer Sistema de Ecuaciones Interactivo
  * Realiza la lectura desde la terminal de un sistema de ecuaciones de forma
  * interactiva preguntando cada variable y las dimensiones.
+ * @return Una matriz con el sistema de ecuaciones leído.
  */
 template <class P>
 Matriz<P> leerSistemaDeEcuacionesInteractivo()
@@ -123,4 +127,80 @@ Matriz<P> leerSistemaDeEcuacionesInteractivo()
 
   // Regresamos la matriz extendida leída.
   return matriz_extendida;
+}
+
+/**
+ * Leer Matriz Interactiva
+ * Realiza la lectura interactiva de una matriz preguntando cada posición y las
+ * dimensiones.
+ * @return
+ */
+template <class P>
+Matriz<P> leerMatrizInteractiva()
+{
+  // Variables locales.
+  int filas, columnas;           // Número de filas y columnas de la matriz.
+  P temporal;                    // Variable temporal.
+  std::vector<P> vectorTemporal; // Un vector para operaciones temporales.
+  std::string linea;             // Un string para leer lineas.
+  Matriz<P> matrizResultante;    // La matriz resultante leída.
+
+  // Leer el número de filas.
+  std::cout << "¿Cuántas filas tendrá la matriz?" << std::endl;
+  do
+  {
+    std::cout << "[" << MIN_ECUACIONES << " - " << MAX_FILAS << "]> ";
+    std::cin >> filas;
+  } while (filas < MIN_ECUACIONES && filas > MAX_FILAS);
+
+  // Leer el número de columnas.
+  std::cout << "¿Cuántas columnas tendrá la matriz?" << std::endl;
+  do
+  {
+    std::cout << "[" << MIN_VARIABLES << " - " << MAX_COLUMNAS << "]> ";
+    std::cin >> columnas;
+  } while (columnas < MIN_VARIABLES && columnas > MAX_COLUMNAS);
+
+  // Salto de línea.
+  std::cout << std::endl
+            << "A continuación se leerá una matriz de " << filas << "x" << columnas << "." << std::endl
+            << std::endl;
+
+  // Hack.
+  std::getline(std::cin, linea);
+
+  // Lectura interactiva.
+  for (int fila = 0; fila < filas; fila++)
+  {
+    // Indicamos el número de fila que será leído.
+    std::cout << "[Fila " << (fila + 1) << "] ";
+
+    // Leemos la linea.
+    std::getline(std::cin, linea);
+
+    // Convertimos la linea en un stream de lectura.
+    std::istringstream bufferDeEntrada(linea);
+
+    // Vaciamos el vector temporal.
+    vectorTemporal.clear();
+
+    // Leemos el número de elementos solicitados por las dimensiones.
+    for (int columna = 0; columna < columnas; columna++)
+    {
+      bufferDeEntrada >> temporal;
+      vectorTemporal.push_back(temporal);
+    }
+
+    // Añadimos la fila en la matriz.
+    matrizResultante = matrizResultante.insertarFila(vectorTemporal);
+  }
+
+  // Mostramos la matriz leída.
+  std::cout << std::endl
+            << "La matriz leída fue:" << std::endl;
+  matrizResultante.imprimir();
+  std::cout << std::endl;
+
+  // Regresamos la matriz final.
+  return matrizResultante;
 }

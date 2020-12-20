@@ -17,7 +17,7 @@ GaussJordan<P>::GaussJordan(Matriz<P> matriz_extendida_inicial)
 {
   // Verificamos que la matriz extendida inicial cumpla con las dimensiones mínimas de
   // un sistema de ecuaciones lineales válido.
-  if (matriz_extendida_inicial.obtenerNumeroColumnas() < (MIN_VARIABLES + 1) || matriz_extendida_inicial.obtenerNumeroFilas() < MIN_ECUACIONES)
+  if (matriz_extendida_inicial.obtenerNumeroColumnas() < MIN_VARIABLES || matriz_extendida_inicial.obtenerNumeroFilas() < MIN_ECUACIONES)
   {
     throw ExcepcionGaussJordan(ERROR_GAUSS_JORDAN_DIMENSIONES_MATRIZ);
   }
@@ -268,6 +268,26 @@ void GaussJordan<P>::mostrarConclusion()
     throw ExcepcionGaussJordan(ERROR_GAUSS_JORDAN_BANDERA_SOLUCION_IRRECONOCIBLE);
     break;
   }
+}
+
+/**
+ * Obtener Numero de Parametros Libres Infinidad de Soluciones.
+ * Función que permite calcular el número de parámetros libres en un sistema de ecuaciones
+ * dado que haya tenido como solución Infinidad de Soluciones, en caso de tener otro tipo de
+ * solución, arrojará una excepción.
+ * @return Un entero con el número de parámetros libres.
+ */
+template <class P>
+int GaussJordan<P>::obtenerNumeroParametrosLibresInfinidadDeSoluciones()
+{
+  // Verificamos que el tipo de solución sea infinidad de soluciones.
+  if (this->obtenerTipoDeSolucion() != INFINIDAD_SOLUCIONES)
+  {
+    throw ExcepcionGaussJordan(ERROR_GAUSS_JORDAN_INFINIDAD_DE_SOLUCIONES_INEXISTENTES);
+  }
+
+  // Realizamos la operación.
+  return this->obtenerNumeroVariables() - this->matriz_extendida_diagonalizada.obtenerRango();
 }
 
 /**
