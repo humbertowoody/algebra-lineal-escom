@@ -6,6 +6,8 @@
 #include "AlgebraLineal.hpp"
 #include <algorithm>
 #include <iterator>
+#include <cmath>
+#include <matplot/matplot.h>
 
 /**
  * Vectores Linealmente Dependientes
@@ -310,4 +312,195 @@ void algebralineal::imprimirVectoresReales(algebralineal::vectoresReales vectore
 
   // Llave final.
   std::cout << " }";
+}
+
+/**
+ * Operaciones con coordenadas.
+ */
+
+/**
+ * Matriz desde coordenada
+ * Transforma una coordenada {x,y} en una representación matricial.
+ * @param coord La coordenada a convertir.
+ * @returns Una matriz con una sola columna representando la coordenada.
+ */
+Matriz<float> algebralineal::matrizDesdeCoordenada(algebralineal::coordenada coord)
+{
+  // Realizamos la conversión.
+  return Matriz<float>({{coord.x},
+                        {coord.y}});
+}
+
+/**
+ * Coordenada desde Matriz
+ * Transforma una matriz en una coordenada {x,y}
+ * @param matriz La matriz a convertir, ojo: sólamente se tomará en consideración la primer columna.
+ * @return Una coordenada representando la primer columna de la matriz proporcionada
+ */
+algebralineal::coordenada algebralineal::coordenadaDesdeMatriz(Matriz<float> mat)
+{
+  // Variable para el resultado.
+  algebralineal::coordenada resultado;
+
+  // Colocamos los datos.
+  resultado.x = mat.obtenerElemento(0, 0);
+  resultado.y = mat.obtenerElemento(1, 0);
+
+  // Regresamos el resultado.
+  return resultado;
+}
+
+/**
+ * Transformaciones lineales en R^2
+ */
+
+/**
+ * Reflexión respecto al eje X
+ * Realiza la reflexión de una coordenada en el eje x.
+ * @param coordenada La coordenada a reflejar.
+ * @return Una coordenada con la transformación aplicada.
+ */
+algebralineal::coordenada algebralineal::reflexionRespectoAEjeX(algebralineal::coordenada coordenada)
+{
+  // Matriz asociada a la transformación lineal.
+  Matriz<float> matrizReflexionRespectoAEjeX({{1, 0},
+                                              {0, -1}});
+
+  // Realizamos la operación.
+  return algebralineal::coordenadaDesdeMatriz(matrizReflexionRespectoAEjeX.multiplicar(algebralineal::matrizDesdeCoordenada(coordenada)));
+}
+
+/**
+ * Reflexión respecto al eje Y.
+ * Realiza la reflexión de una coordenada en el eje y.
+ * @param coordenada La coordenada a reflejar.
+ * @return Una coordenada con la transformación aplicada.
+ */
+algebralineal::coordenada algebralineal::reflexionRespectoAEjeY(algebralineal::coordenada coordeanda)
+{
+  // Matriz asociada a la transformación lineal.
+  Matriz<float> matrizReflexionRespectoAEjeY({{-1, 0},
+                                              {0, 1}});
+
+  // Realizamos la operación.
+  return algebralineal::coordenadaDesdeMatriz(matrizReflexionRespectoAEjeY.multiplicar(algebralineal::matrizDesdeCoordenada(coordeanda)));
+}
+
+/**
+ * Corte a lo largo del eje X
+ * Realiza la transformación de un corte a lo largo del eje X.
+ * @param c El valor de C.
+ * @param coordenada La coordenada para realizar el corte.
+ * @return Una coordenada con la transformación aplicada.
+ */
+algebralineal::coordenada algebralineal::corteEjeX(float c, algebralineal::coordenada coordenada)
+{
+  // Matriz asociada a la transformación lineal.
+  Matriz<float> matrizCorteEjeX({{1, c},
+                                 {0, 1}});
+
+  // Realizamos la operación.
+  return algebralineal::coordenadaDesdeMatriz(matrizCorteEjeX.multiplicar(algebralineal::matrizDesdeCoordenada(coordenada)));
+}
+
+/**
+ * Corte a lo largo del eje Y
+ * Realiza la transformación de un corte a lo largo del eje Y.
+ * @param c El valor de C.
+ * @param coordenada La coordenada para realizar el corte.
+ * @return Una coordenada con la transformación aplicada.
+ */
+algebralineal::coordenada algebralineal::corteEjeY(float c, algebralineal::coordenada coordenada)
+{
+  // Matriz asociada a la transformación lineal.
+  Matriz<float> matrizCorteEjeY({{1, 0},
+                                 {c, 1}});
+
+  // Realizamos la operación.
+  return algebralineal::coordenadaDesdeMatriz(matrizCorteEjeY.multiplicar(algebralineal::matrizDesdeCoordenada(coordenada)));
+}
+
+/**
+ * Expansión en eje X
+ * Realiza la transformación de expansión en el eje X.
+ * @param c El valor de C.
+ * @param coordenada La coordenada para realizar la transformación.
+ * @return Una coordenada con la transformación aplicada.
+ */
+algebralineal::coordenada algebralineal::expansionEjeX(float c, algebralineal::coordenada coordenada)
+{
+  // Matriz asociada a la transformación lineal.
+  Matriz<float> matrizExpansionEjeX({{c, 0},
+                                     {0, 1}});
+
+  // Realizamos la operación.
+  return algebralineal::coordenadaDesdeMatriz(matrizExpansionEjeX.multiplicar(algebralineal::matrizDesdeCoordenada(coordenada)));
+}
+
+/**
+ * Expansión en eje Y
+ * Realiza la transformación de expansión en el eje Y.
+ * @param c El valor de C.
+ * @param coordenada La coordenada para realizar la transformación.
+ * @return Una coordenada con la transformación aplicada.
+ */
+algebralineal::coordenada algebralineal::expansionEjeY(float c, algebralineal::coordenada coordenada)
+{
+  // Matriz asociada a la transformación lineal.
+  Matriz<float> matrizExpansionEjeY({{1, 0},
+                                     {0, c}});
+
+  // Realizamos la operación.
+  return algebralineal::coordenadaDesdeMatriz(matrizExpansionEjeY.multiplicar(algebralineal::matrizDesdeCoordenada(coordenada)));
+}
+
+/**
+ * Compresión en eje X
+ * Realiza la transformación de compresión en el eje X.
+ * @param c El valor de C.
+ * @param coordenada La coordenada para realizar la transformación.
+ * @return Una coordenada con la transformación aplicada.
+ */
+algebralineal::coordenada algebralineal::compresionEjeX(float c, algebralineal::coordenada coordenada)
+{
+  // Matriz asociada a la transformación lineal.
+  Matriz<float> matrizCompresionEjeX({{c, 0},
+                                      {0, 1}});
+
+  // Realizamos la operación.
+  return algebralineal::coordenadaDesdeMatriz(matrizCompresionEjeX.multiplicar(algebralineal::matrizDesdeCoordenada(coordenada)));
+}
+
+/**
+ * Compresión en eje Y
+ * Realiza la transformación de compresión en el eje Y.
+ * @param c El valor de C.
+ * @param coordenada La coordenada para realizar la transformación.
+ * @return Una coordenada con la transformación aplicada.
+ */
+algebralineal::coordenada algebralineal::compresionEjeY(float c, algebralineal::coordenada coordenada)
+{
+  // Matriz asociada a la transformación lineal.
+  Matriz<float> matrizCompresionEjeY({{1, 0},
+                                      {0, c}});
+
+  // Realizamos la operación.
+  return algebralineal::coordenadaDesdeMatriz(matrizCompresionEjeY.multiplicar(algebralineal::matrizDesdeCoordenada(coordenada)));
+}
+
+/**
+ * Rotación
+ * Realiza la transformación de rotación.
+ * @param angulo El ángulo para realizar la rotación.
+ * @param coordenada La coordenada para realizar la transformación.
+ * @return Una coordenada con la transformación aplicada.
+ */
+algebralineal::coordenada algebralineal::rotacion(float angulo, algebralineal::coordenada coordenada)
+{
+  // Matriz asociada a la transformación lineal.
+  Matriz<float> matrizRotacion({{cos(angulo), -sin(angulo)},
+                                {sin(angulo), cos(angulo)}});
+
+  // Realizamos la operación.
+  return algebralineal::coordenadaDesdeMatriz(matrizRotacion.multiplicar(algebralineal::matrizDesdeCoordenada(coordenada)));
 }
